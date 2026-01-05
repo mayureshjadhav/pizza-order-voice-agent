@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SliceAI | Intelligent Voice Ordering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Hide Default Vapi Widget UI */
+        .vapi-btn-container, 
+        .vapi-btn, 
+        #vapi-support-btn, 
+        iframe[title="Vapi Support"] {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white overflow-x-hidden selection:bg-orange-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 px-6 py-4 flex justify-between items-center bg-slate-950/80">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center">
+                <i data-lucide="pizza" class="text-white w-5 h-5"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">Slice<span class="text-orange-500">AI</span></span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
+            <a href="#demo" class="hover:text-white transition-colors">Interactive Demo</a>
+            <a href="#menu" class="hover:text-white transition-colors">Full Menu</a>
+            <a href="#features" class="hover:text-white transition-colors">Capabilities</a>
+        </div>
+        <!-- Settings button removed -->
+    </nav>
+
+    <main class="min-h-screen pt-24 pb-12 px-4 md:px-8">
+        
+        <!-- Hero Section -->
+        <section class="max-w-7xl mx-auto text-center mt-12 mb-24 relative">
+             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
+                <div class="absolute top-10 left-1/4 w-64 h-64 bg-orange-600/20 rounded-full blur-[100px]"></div>
+                <div class="absolute bottom-10 right-1/4 w-80 h-80 bg-red-600/10 rounded-full blur-[100px]"></div>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-8">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Vapi-Powered Ordering Assistant</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight">
+                Ordering Pizza just got <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">Conversationally Intelligent.</span>
+            </h1>
+            <p class="text-xl text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed">
+                Skip the app clicks. Experience our advanced AI voice agent that understands complex orders, modifications, and pricing in real-time.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#demo" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-orange-500/20 group">
+                    Try the Demo <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <a href="#menu" class="px-8 py-4 font-semibold text-slate-300 transition-all duration-200 bg-slate-900 border border-slate-700 rounded-xl hover:bg-slate-800 hover:text-white">
+                    View Menu
+                </a>
+            </div>
+        </section>
+
+        <!-- Interactive Demo Section -->
+        <section id="demo" class="max-w-7xl mx-auto mb-32 relative scroll-mt-28">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-600/5 blur-[120px] rounded-full -z-10"></div>
+            <div class="grid lg:grid-cols-5 gap-12 items-start">
+                
+                <!-- Left Column: Instructions & Context -->
+                <div class="space-y-8 lg:col-span-3">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center">
+                            <i data-lucide="mic" class="text-orange-400 w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold">Interactive Voice Lab</h2>
+                    </div>
+                    <p class="text-white/60 leading-relaxed text-lg">
+                        Test the agent's capabilities by acting as a customer. The agent knows the entire menu, can handle ingredient removal, and calculate totals instantly.
+                    </p>
+                    
+                    <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
+                        <h4 class="flex items-center gap-2 text-orange-400 font-bold mb-4">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i> Suggested Scenarios
+                        </h4>
+                        <div class="grid gap-4">
+                             <div class="bg-slate-950 p-4 rounded-xl border border-white/5 hover:border-orange-500/30 transition-colors cursor-pointer group" onclick="copyToClipboard('I want a large Pepperoni pizza but without cheese.')">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-sm font-semibold text-slate-200">Complex Modification</span>
+                                    <i data-lucide="copy" class="w-3 h-3 text-slate-600 group-hover:text-orange-500 transition-colors"></i>
+                                </div>
+                                <p class="text-white/60 text-sm italic">"I want a large Pepperoni pizza but without cheese, add extra mushrooms."</p>
+                            </div>
+
+                            <div class="bg-slate-950 p-4 rounded-xl border border-white/5 hover:border-orange-500/30 transition-colors cursor-pointer group" onclick="copyToClipboard('What vegetarian options do you have?')">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-sm font-semibold text-slate-200">Information Query</span>
+                                    <i data-lucide="copy" class="w-3 h-3 text-slate-600 group-hover:text-orange-500 transition-colors"></i>
+                                </div>
+                                <p class="text-white/60 text-sm italic">"What vegetarian options do you have? Does the Veggie Delight come with olives?"</p>
+                            </div>
+
+                            <div class="bg-slate-950 p-4 rounded-xl border border-white/5 hover:border-orange-500/30 transition-colors cursor-pointer group" onclick="copyToClipboard('Two medium BBQ Chicken pizzas and a garlic bread.')">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-sm font-semibold text-slate-200">Multiple Items</span>
+                                    <i data-lucide="copy" class="w-3 h-3 text-slate-600 group-hover:text-orange-500 transition-colors"></i>
+                                </div>
+                                <p class="text-white/60 text-sm italic">"I'll take two medium BBQ Chicken pizzas and a garlic bread. How much is that?"</p>
+                            </div>
+                        </div>
+                         <p id="copy-feedback" class="text-xs text-green-500 mt-2 h-4 opacity-0 transition-opacity">Copied to clipboard!</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                        <h4 class="flex items-center gap-2 text-amber-400 font-bold mb-2">
+                            <i data-lucide="info" class="w-5 h-5"></i> Instructions
+                        </h4>
+                        <ol class="text-sm text-white/70 space-y-2 list-decimal ml-4">
+                            <li>Ensure your microphone permission is granted.</li>
+                            <li>Click "Speak with Agent" on the right.</li>
+                            <li>Talk naturally. You can interrupt the agent at any time.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Right Column: Sticky Agent Interface -->
+                <div class="sticky top-28 lg:col-span-2 glass p-8 md:p-10 rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col items-center text-center">
+                    <!-- Error Banner inside card -->
+                    <div id="error-banner" class="hidden w-full bg-red-500/10 border border-red-500/20 text-red-200 text-xs p-2 rounded mb-4 text-center"></div>
+
+                    <!-- Visualizer / Mic Container -->
+                    <div id="mic-icon-container" class="w-32 h-32 rounded-full flex items-center justify-center relative mb-8 transition-all duration-500 bg-slate-800 shadow-inner">
+                        <div id="orb-glow" class="absolute inset-0 rounded-full bg-orange-500 blur-xl opacity-0 transition-opacity duration-300"></div>
+                        <i data-lucide="mic" id="mic-icon" class="w-12 h-12 transition-colors text-white/20 relative z-10"></i>
+                        
+                        <!-- Connecting Spinner -->
+                        <div id="agent-spinner" class="absolute inset-0 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin hidden"></div>
+                    </div>
+
+                    <h3 id="call-status-heading" class="text-3xl font-bold mb-3">Agent Ready</h3>
+                    <p id="call-status-paragraph" class="text-white/50 mb-8 max-w-sm text-sm">
+                        Ready to take your order. Click below to start the conversation.
+                    </p>
+
+                    <button id="call-button" class="w-full max-w-xs py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all bg-orange-600 hover:bg-orange-700 hover:scale-105 shadow-xl shadow-orange-500/20 active:scale-95">
+                        <span id="call-button-content" class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-5 h-5"></i> Speak with Agent
+                        </span>
+                    </button>
+                    
+                    <button id="reset-button" class="hidden mt-6 text-slate-500 hover:text-white text-xs font-medium underline underline-offset-4">
+                        Reset Connection
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="max-w-7xl mx-auto mb-32 scroll-mt-24">
+            <div class="text-left mb-12 border-b border-white/10 pb-8">
+                <h2 class="text-4xl font-bold mb-4 tracking-tight">Full Menu</h2>
+                <p class="text-white/60 max-w-3xl text-lg">The agent has real-time access to these items, prices, and topping details.</p>
+            </div>
+            
+            <div id="classic-pizzas-container"></div>
+            <div id="special-pizzas-container"></div>
+
+             <!-- Customization Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <div class="glass p-6 rounded-2xl border border-white/5">
+                <h3 class="text-xl font-bold text-orange-400 mb-4">Crust Options</h3>
+                <ul class="space-y-3 text-sm" id="crust-list"></ul>
+              </div>
+              <div class="glass p-6 rounded-2xl border border-white/5">
+                <h3 class="text-xl font-bold text-orange-400 mb-4">Extra Toppings</h3>
+                <p class="text-xs text-slate-500 mb-3 uppercase tracking-wide">$1.50 per topping</p>
+                <div class="flex flex-wrap gap-2" id="toppings-list"></div>
+              </div>
+              <div class="glass p-6 rounded-2xl border border-white/5">
+                <h3 class="text-xl font-bold text-orange-400 mb-4">Add-ons</h3>
+                <ul class="space-y-3 text-sm" id="addons-list"></ul>
+              </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="max-w-7xl mx-auto mb-32 scroll-mt-24">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 tracking-tight">Enterprise Agent Capabilities</h2>
+                <p class="text-white/60 max-w-2xl mx-auto text-lg">Built for high-volume food service environments. Here's what makes this agent production-ready.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-orange-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-orange-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="text-orange-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Sub-800ms Latency</h3>
+                    <p class="text-white/60 leading-relaxed">Powered by Vapi's turbo engine to ensure conversations feel natural with zero awkward pauses.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-orange-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-orange-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shopping-bag" class="text-orange-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Intelligent Upselling</h3>
+                    <p class="text-white/60 leading-relaxed">Contextually suggests drinks, sides, or premium crusts based on the customer's current order.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-orange-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-orange-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="heart-handshake" class="text-orange-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Tone Adaptation</h3>
+                    <p class="text-white/60 leading-relaxed">Detects customer frustration and automatically adjusts voice tone to be more empathetic or efficient.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-orange-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-orange-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="languages" class="text-orange-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Multi-lingual</h3>
+                    <p class="text-white/60 leading-relaxed">Seamlessly handles orders in Spanish, French, and 50+ other languages instantly.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-orange-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-orange-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="chef-hat" class="text-orange-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Complex Customization</h3>
+                    <p class="text-white/60 leading-relaxed">Handles "half-pepperoni, half-cheese, light sauce, well done" requests with 100% accuracy.</p>
+                </div>
+                <div class="p-8 rounded-2xl glass border border-white/5 hover:border-orange-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-orange-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="database" class="text-orange-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">POS Integration</h3>
+                    <p class="text-white/60 leading-relaxed">Connects directly to Square, Toast, or Clover to inject orders straight into the kitchen.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="max-w-4xl mx-auto">
+            <div class="glass p-12 rounded-[3rem] border border-orange-500/20 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-orange-600/20 blur-[100px] -z-10"></div>
+                <h2 class="text-4xl font-bold mb-6 tracking-tight">Ready to upgrade your CX?</h2>
+                <p class="text-white/60 text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
+                    I'm currently taking on projects for restaurant chains looking to automate their phone orders with AI. Let's build something world-class.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a href="mailto:hello@yourportfolio.com?subject=Book a Strategy Call - SliceAI" class="bg-white text-slate-950 px-10 py-4 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center gap-2">
+                        Book a Strategy Call <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <div class="text-sm font-medium text-white/80">
+                        or email me at <a href="mailto:hello@example.com" class="text-orange-500 underline underline-offset-4">hello@yourportfolio.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-white/40 text-sm px-4 md:px-8 pb-12">
+        <div class="flex items-center gap-2">
+            <i data-lucide="pizza" class="w-5 h-5"></i>
+            <span class="font-bold text-white/70">SliceAI</span>
+        </div>
+        <div>© <span id="year"></span> Voice Agent Portfolio. Powered by Vapi.</div>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+            <a href="#" class="hover:text-white transition-colors">Twitter</a>
+            <a href="#" class="hover:text-white transition-colors">GitHub</a>
+        </div>
+    </footer>
+
+    <script>
+      // --- DATA CONSTANTS ---
+      const CLASSIC_PIZZAS = {
+        title: "Classic Pizzas",
+        items: [
+          {
+            name: "Margherita Pizza",
+            prices: { Small: 8.99, Medium: 11.99, Large: 14.99 },
+            toppings: ["mozzarella cheese", "tomato sauce", "basil"]
+          },
+          {
+            name: "Pepperoni Pizza",
+            prices: { Small: 9.99, Medium: 12.99, Large: 15.99 },
+            toppings: ["mozzarella cheese", "pepperoni"]
+          },
+          {
+            name: "Veggie Delight Pizza",
+            prices: { Small: 9.49, Medium: 12.49, Large: 15.49 },
+            toppings: ["onion", "capsicum", "olives", "mushrooms", "mozzarella cheese"]
+          }
+        ]
+      };
+
+      const SPECIAL_PIZZAS = {
+        title: "Special Pizzas",
+        items: [
+          {
+            name: "BBQ Chicken Pizza",
+            prices: { Medium: 13.99, Large: 16.99 },
+            toppings: ["grilled chicken", "onion", "BBQ sauce", "mozzarella cheese"]
+          },
+          {
+            name: "Meat Lovers Pizza",
+            prices: { Medium: 14.99, Large: 17.99 },
+            toppings: ["pepperoni", "sausage", "bacon", "mozzarella cheese"]
+          }
+        ]
+      };
+
+      const CRUST_OPTIONS = [
+        { name: "Thin crust", price: 0 },
+        { name: "Cheese burst", price: 2.00 },
+        { name: "Stuffed crust", price: 3.00 },
+      ];
+
+      const EXTRA_TOPPINGS = [
+        "Extra cheese", "Jalapeños", "Black olives", "Mushrooms", "Onions", "Bell peppers"
+      ];
+
+      const ADD_ONS = [
+        { name: "Garlic bread", price: 4.99 },
+        { name: "Cheese sticks", price: 5.99 },
+        { name: "Soft drink", price: 1.99 },
+      ];
+
+      const VAPI_CONFIG = {
+        PUBLIC_KEY: 'c23ca234-d1c8-447f-80e0-59378aa59374',
+        ASSISTANT_ID: 'ef24239d-6b5e-45d8-914c-4982243db379'
+      };
+      
+      const CallStatus = { 
+          IDLE: 'IDLE', 
+          CONNECTING: 'CONNECTING', 
+          ACTIVE: 'ACTIVE', 
+          ERROR: 'ERROR' 
+      };
+
+      // --- DOM ELEMENTS ---
+      // Modal elements removed
+
+      const callButton = document.getElementById('call-button');
+      const callButtonContent = document.getElementById('call-button-content');
+      const micIconContainer = document.getElementById('mic-icon-container');
+      const micIcon = document.getElementById('mic-icon');
+      const orbGlow = document.getElementById('orb-glow');
+      const agentSpinner = document.getElementById('agent-spinner');
+      const callStatusHeading = document.getElementById('call-status-heading');
+      const callStatusParagraph = document.getElementById('call-status-paragraph');
+      const resetButton = document.getElementById('reset-button');
+      const errorBanner = document.getElementById('error-banner');
+
+      // --- STATE ---
+      let vapiInstance = null;
+      let callStatus = CallStatus.IDLE;
+      let vapiKeys = { ...VAPI_CONFIG };
+
+      // --- RENDER MENU ---
+      function renderMenuSection(category, containerId) {
+        const container = document.getElementById(containerId);
+        let html = `
+          <div class="mb-12">
+            <h3 class="text-2xl font-bold text-orange-500 mb-6 border-b border-orange-500/30 pb-2">${category.title}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        `;
+        
+        category.items.forEach(item => {
+          const pricesHtml = Object.entries(item.prices).map(([size, price]) => `
+            <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-1 last:border-0">
+              <span class="text-slate-300 font-medium">${size}</span>
+              <span class="text-orange-400 font-bold">$${price.toFixed(2)}</span>
+            </div>
+          `).join('');
+
+          html += `
+            <div class="glass rounded-xl p-6 border border-white/5 hover:border-orange-500/50 transition-colors shadow-lg">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="text-xl font-semibold text-slate-100">${item.name}</h4>
+              </div>
+              <p class="text-slate-400 text-sm mb-4 min-h-[40px]">${item.toppings ? item.toppings.join(', ') : ''}</p>
+              <div class="space-y-2">${pricesHtml}</div>
+            </div>
+          `;
+        });
+        
+        html += `</div></div>`;
+        container.innerHTML = html;
+      }
+
+      function renderExtras() {
+        const crustList = document.getElementById('crust-list');
+        crustList.innerHTML = CRUST_OPTIONS.map(c => `
+          <li class="flex justify-between text-slate-300">
+            <span>${c.name}</span>
+            <span class="text-slate-500">${c.price === 0 ? 'Free' : '+$' + c.price.toFixed(2)}</span>
+          </li>
+        `).join('');
+
+        const toppingsList = document.getElementById('toppings-list');
+        toppingsList.innerHTML = EXTRA_TOPPINGS.map(t => `
+          <span class="px-3 py-1 bg-slate-800 text-slate-300 rounded-full text-sm border border-slate-700">${t}</span>
+        `).join('');
+
+        const addonsList = document.getElementById('addons-list');
+        addonsList.innerHTML = ADD_ONS.map(a => `
+          <li class="flex justify-between text-slate-300">
+            <span>${a.name}</span>
+            <span class="text-slate-500">$${a.price.toFixed(2)}</span>
+          </li>
+        `).join('');
+      }
+
+      function copyToClipboard(text) {
+          navigator.clipboard.writeText(text);
+          const feedback = document.getElementById('copy-feedback');
+          feedback.classList.remove('opacity-0');
+          setTimeout(() => feedback.classList.add('opacity-0'), 2000);
+      }
+      window.copyToClipboard = copyToClipboard; // Expose to global scope for inline onclick
+
+      // --- UI UPDATES ---
+      function updateUI(status, errorMessage = null) {
+          callStatus = status;
+          
+          // Reset base states
+          micIconContainer.classList.remove('bg-slate-800', 'bg-slate-700', 'bg-orange-600', 'animate-pulse', 'bg-red-900/20', 'shadow-orange-500/50');
+          callButton.classList.remove(
+              'bg-orange-600', 'hover:bg-orange-700', 
+              'bg-red-500', 'hover:bg-red-600', 
+              'bg-slate-700', 
+              'disabled:opacity-50', 'disabled:grayscale', 'cursor-not-allowed'
+          );
+          micIcon.classList.remove('text-white/20', 'text-white', 'text-red-500');
+          orbGlow.classList.remove('opacity-100', 'animate-pulse');
+          orbGlow.classList.add('opacity-0');
+          agentSpinner.classList.add('hidden');
+          resetButton.classList.add('hidden');
+          errorBanner.classList.add('hidden');
+          
+          if (micIconContainer.querySelector('.animate-ping')) {
+              micIconContainer.querySelector('.animate-ping').remove();
+          }
+
+          switch (status) {
+              case CallStatus.ACTIVE:
+                  callStatusHeading.textContent = "Agent Listening...";
+                  callStatusParagraph.textContent = "Go ahead, place your order or ask about the menu.";
+                  callButtonContent.innerHTML = `<i data-lucide="phone-off" class="w-5 h-5"></i> End Session`;
+                  callButton.classList.add('bg-red-500', 'hover:bg-red-600');
+                  
+                  micIconContainer.classList.add('bg-orange-600', 'shadow-orange-500/50');
+                  micIcon.classList.add('text-white');
+                  orbGlow.classList.remove('opacity-0');
+                  orbGlow.classList.add('opacity-100', 'animate-pulse');
+                  
+                  // Add Ping Effect
+                  micIconContainer.insertAdjacentHTML('afterbegin', `<div class="absolute inset-0 rounded-full border-4 border-orange-400 animate-ping opacity-25"></div>`);
+                  break;
+
+              case CallStatus.CONNECTING:
+                  callStatusHeading.textContent = "Connecting...";
+                  callStatusParagraph.textContent = "Establishing secure voice connection...";
+                  callButtonContent.innerHTML = "Connecting..."; // Spinner handled by button state or separate icon if desired
+                  callButton.classList.add('bg-slate-700', 'disabled:opacity-50', 'cursor-not-allowed');
+                  
+                  micIconContainer.classList.add('bg-slate-800');
+                  agentSpinner.classList.remove('hidden');
+                  break;
+
+              case CallStatus.ERROR:
+                  callStatusHeading.textContent = "Connection Failed";
+                  callStatusParagraph.textContent = "We couldn't reach the agent.";
+                  callButtonContent.innerHTML = `<i data-lucide="refresh-cw" class="w-5 h-5"></i> Retry`;
+                  callButton.classList.add('bg-orange-600', 'hover:bg-orange-700');
+                  
+                  micIconContainer.classList.add('bg-red-900/20');
+                  micIcon.classList.add('text-red-500');
+                  
+                  errorBanner.textContent = errorMessage || "Unknown error occurred.";
+                  errorBanner.classList.remove('hidden');
+                  resetButton.classList.remove('hidden');
+                  break;
+
+              case CallStatus.IDLE:
+              default:
+                  callStatusHeading.textContent = "Agent Ready";
+                  callStatusParagraph.textContent = "Ready to take your order. Click below to start the conversation.";
+                  callButtonContent.innerHTML = `<i data-lucide="phone" class="w-5 h-5"></i> Speak with Agent`;
+                  callButton.classList.add('bg-orange-600', 'hover:bg-orange-700');
+                  
+                  micIconContainer.classList.add('bg-slate-800');
+                  micIcon.classList.add('text-white/20');
+                  break;
+          }
+
+          lucide.createIcons();
+          callButton.disabled = status === CallStatus.CONNECTING;
+      }
+
+      function getHumanReadableError(error) {
+        if (!error) return "An unknown error occurred.";
+        const errStr = error.toString().toLowerCase();
+        
+        if (errStr.includes("permission denied") || errStr.includes("notallowederror")) {
+          return "Microphone access denied. Please allow microphone access in browser settings.";
+        }
+        if (errStr.includes("not found") || errStr.includes("notfounderror")) {
+          return "No microphone found. Please connect a microphone.";
+        }
+        if (errStr.includes("network") || errStr.includes("websocket")) {
+            return "Network error. Please check your internet connection.";
+        }
+        if (errStr.includes("api key")) {
+            return "Configuration Error: Invalid API Key.";
+        }
+        return error.message || "Unable to connect. Please try again.";
+      }
+
+      // --- VAPI LOGIC ---
+      function initVapi() {
+          // Clean up existing listeners if re-initializing
+          if (vapiInstance) {
+              vapiInstance.removeAllListeners();
+              vapiInstance.stop();
+          }
+
+          if (window.vapiSDK) {
+              try {
+                  vapiInstance = window.vapiSDK.run({
+                      apiKey: vapiKeys.PUBLIC_KEY,
+                      assistant: vapiKeys.ASSISTANT_ID
+                  });
+
+                  vapiInstance.on('call-start', () => updateUI(CallStatus.ACTIVE));
+                  vapiInstance.on('call-end', () => updateUI(CallStatus.IDLE));
+                  vapiInstance.on('error', (e) => {
+                      console.error("Vapi Error:", e);
+                      // Only show error UI if we were trying to connect or active
+                      if (callStatus === CallStatus.CONNECTING || callStatus === CallStatus.ACTIVE) {
+                           updateUI(CallStatus.ERROR, getHumanReadableError(e));
+                      }
+                  });
+              } catch (e) {
+                  console.error("Vapi init error:", e);
+                  updateUI(CallStatus.ERROR, "Failed to initialize SDK.");
+              }
+          } else {
+              console.error("Vapi SDK not loaded");
+              updateUI(CallStatus.ERROR, "Voice SDK missing.");
+          }
+      }
+
+      async function toggleCall() {
+          if (!vapiKeys.PUBLIC_KEY || !vapiKeys.ASSISTANT_ID) {
+              updateUI(CallStatus.ERROR, "Missing API Keys. Please configure settings.");
+              return;
+          }
+
+          if (callStatus === CallStatus.IDLE || callStatus === CallStatus.ERROR) {
+              updateUI(CallStatus.CONNECTING);
+              if (!vapiInstance) initVapi();
+              
+              if (vapiInstance) {
+                  try {
+                      await vapiInstance.start(vapiKeys.ASSISTANT_ID);
+                  } catch (err) {
+                      console.error("Start failed:", err);
+                      updateUI(CallStatus.ERROR, getHumanReadableError(err));
+                  }
+              }
+          } else if (callStatus === CallStatus.ACTIVE) {
+              if (vapiInstance) vapiInstance.stop();
+          }
+      }
+
+      // --- EVENT LISTENERS ---
+      callButton.addEventListener('click', toggleCall);
+      resetButton.addEventListener('click', () => updateUI(CallStatus.IDLE));
+      
+      // Settings Logic Removed
+
+      // --- INIT ---
+      document.getElementById('year').textContent = new Date().getFullYear();
+      renderMenuSection(CLASSIC_PIZZAS, 'classic-pizzas-container');
+      renderMenuSection(SPECIAL_PIZZAS, 'special-pizzas-container');
+      renderExtras();
+      lucide.createIcons();
+      // Initialize Vapi immediately so it's ready
+      initVapi();
+
+    </script>
+</body>
+</html>
